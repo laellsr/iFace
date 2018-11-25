@@ -2,5 +2,25 @@ package iFace;
 
 public class Invite
 {
-	String from_username, from_name, to_username, to_name;
+	String username, name;
+	
+	public String getName()
+	{
+		return name;
+	}
+	
+	public String getUsername()
+	{
+		return username;
+	}
+	
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+	
+	public void setUsername(String username)
+	{
+		this.username = username;
+	}
 }

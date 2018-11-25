@@ -1,36 +1,62 @@
 package iFace;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class SingUp
+public class Profile
 {
-	String username, password;
-	String name, age = "-----", gender = "-----", phrase = "-----", more1 = "-----", more2 = "-----";
+	
+	String name, age, gender, state, city, country, phrase, more1, more2;
+	ArrayList<Friends> friends = new ArrayList<Friends>();
+	ArrayList<InputBox> input_box = new ArrayList<InputBox>();
+	ArrayList<Invite> invites = new ArrayList<Invite>();
+	
 	Scanner input = new Scanner(System.in);
-	public void newUser(String username)
+
+	public void setProfile()
 	{
-		this.username = username;
-		System.out.printf("\nDigite sua senha:\n=> ");
-		this.password = input.nextLine();
-		System.out.printf("\nDigite seu nome de perfil\n=> ");
-		this.name = input.nextLine();
-		System.out.printf("\nVocê foi cadastrado no iFace.\nFaça seu login!\n\n");
+		setName();
+		setAge();
+		setGender();
+		setState();
+		setCity();
+		setCountry();
+		setPhrase();
+		setMore1();
+		setMore2();
 	}
 	
-	public String getUsername()
+	public String getCountry()
 	{
-		return username;
+		return country;
 	}
 	
-	public String getPassword()
+	public void setCountry()
 	{
-		return password;
+		System.out.printf("\nDigite o país em que nasceu:\n=> ");
+		country = input.nextLine();
 	}
 	
-	public void setPassword()
+	public String getCity()
 	{
-		System.out.printf("\nDigite sua nova senha:\n=> ");
-		password = input.nextLine();
+		return city;
+	}
+	
+	public void setCity()
+	{
+		System.out.printf("\nDigite a cidade em que nasceu:\n=> ");
+		city = input.nextLine();
+	}
+	
+	public String getState()
+	{
+		return state;
+	}
+	
+	public void setState()
+	{
+		System.out.printf("\nDigite o estado em que nasceu:\n=> ");
+		state = input.nextLine();
 	}
 	
 	public String getName()
