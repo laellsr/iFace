@@ -6,10 +6,13 @@ import java.util.Scanner;
 public class Profile
 {
 	
-	String name, age, gender, state, city, country, phrase, more1, more2;
+	String name = "[EditeNome]", age = "[EditeIdade]", gender = "[EditeGenero]",
+			state = "[EditeEstado]", city = "[EditeCidade]", country = "[EditePais]",
+			phrase = "[EditeFrase]", more1 = "[Adicione]", more2 = "[Adicione]";
 	ArrayList<Friends> friends = new ArrayList<Friends>();
 	ArrayList<InputBox> input_box = new ArrayList<InputBox>();
 	ArrayList<Invite> invites = new ArrayList<Invite>();
+	ArrayList<Community> communities = new ArrayList<Community>();
 	
 	Scanner input = new Scanner(System.in);
 
@@ -33,7 +36,7 @@ public class Profile
 	
 	public void setCountry()
 	{
-		System.out.printf("\nDigite o país em que nasceu:\n=> ");
+		System.out.printf("\nDigite o pais em que nasceu:\n=> ");
 		country = input.nextLine();
 	}
 	
@@ -88,7 +91,7 @@ public class Profile
 	
 	public void setGender()
 	{
-		System.out.printf("\nDigite seu gênero:\n=> ");
+		System.out.printf("\nDigite seu genero:\n=> ");
 		gender = input.nextLine();
 	}
 	
@@ -109,7 +112,7 @@ public class Profile
 	
 	public void setMore1()
 	{
-		System.out.printf("\nAdicione outra informação sobre você\n=> ");
+		System.out.printf("\nAdicione outra informacao sobre voce\n=> ");
 		more1 = input.nextLine();
 	}
 	
@@ -120,7 +123,7 @@ public class Profile
 	
 	public void setMore2()
 	{
-		System.out.printf("\nAdicione outra informação sobre você\n=> ");
+		System.out.printf("\nAdicione outra informacao sobre voce\n=> ");
 		more2 = input.nextLine();
 	}
 }

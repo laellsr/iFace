@@ -37,7 +37,7 @@ public class Main
 					break;
 			}
 		}
-
+		System.out.printf("\nUsuario(s) cadastrado(s): [%s]\n", accounts.size());
 		for(int i = 0; i < accounts.size(); i++)
 			System.out.println(accounts.get(i).username);
 		input.close();

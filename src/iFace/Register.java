@@ -11,6 +11,7 @@ public class Register
 	
 	public void setRegister(ArrayList<Register> accounts, Register new_register)
 	{
+		String okay;
 		setUsername();
 		if(!accounts.isEmpty())
 		{
@@ -18,14 +19,18 @@ public class Register
 			{
 				if(username.intern() == (accounts.get(i).getUsername()).intern())
 				{
-					System.out.printf("\nEsse usuário já existe.\n\n");
+					System.out.printf("\nEsse usuario ja existe.\n[1] Continue\n=> ");
+					okay = input.nextLine();
+					System.out.printf("\n");
 					return;
 				}
 			}
 		}
 		setPassword();
-		System.out.printf("\nVocê foi cadastrado no iFace!\n\n");
+		new_register.new_profile.setName();
 		accounts.add(new_register);
+		System.out.printf("\nVoce foi cadastrado no iFace!\n\n");
+		
 	}
 	
 	public String getUsername()
@@ -35,7 +40,7 @@ public class Register
 	
 	public void setUsername()
 	{
-		System.out.printf("\nDigite seu novo nome de usuário:\n=> ");
+		System.out.printf("\nDigite seu novo nome de usuario:\n=> ");
 		username = input.nextLine();
 	}
 	
@@ -46,7 +51,7 @@ public class Register
 	
 	public void setPassword()
 	{
-		System.out.printf("\nDigite sua nova senha:\n=> ");
+		System.out.printf("Digite sua nova senha:\n=> ");
 		password = input.nextLine();
 	}
 }
