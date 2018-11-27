@@ -68,7 +68,7 @@ public class Login
 						new_friend2.name = accounts.get(index).new_profile.getName();
 						new_friend2.username = accounts.get(index).getUsername();
 						accounts.get(index2).new_profile.friends.add(new_friend2);
-						System.out.printf("%s agora é seu amigo!\n", accounts.get(index).new_profile.invites.get(i).getUsername());
+						System.out.printf("%s agora e seu amigo!\n", accounts.get(index).new_profile.invites.get(i).getUsername());
 						System.out.printf("[1] Continue\n=> ");
 						String okay;
 						okay = input.nextLine();
@@ -76,7 +76,7 @@ public class Login
 						break;
 						
 					case 2:
-						System.out.printf("Solicitação de amizade recusada!\n");
+						System.out.printf("Solicitacao de amizade recusada!\n");
 						System.out.printf("[1] Continue\n=> ");
 						okay = input.nextLine();
 						System.out.printf("\n");
@@ -86,8 +86,34 @@ public class Login
 			}
 		}
 		accounts.get(index).new_profile.invites.clear();
+		///////
+		///////
+		/* convites de comunidades */
+		for(int i = 0; i < accounts.get(index).new_profile.communities.size(); i++)
+		{
+			for(int j = 0; j < accounts.get(index).new_profile.communities.get(i).invites.size(); j++)
+			{
+				System.out.printf("%s esta pedindo permissao para participar "
+						+ "da sua comunidade \"%s\"\n[1] Aceitar [2] Recusar\n=> ",
+						accounts.get(index).new_profile.communities.get(i).invites.get(j).name,
+						accounts.get(i).new_profile.communities.get(i).name);
+				decision = input.nextInt(); input.nextLine();
+				if(decision==1)
+				{
+					Friends new_member = new Friends();
+					new_member.username = accounts.get(index).new_profile.communities.get(i).invites.get(j).username;
+					new_member.name = accounts.get(index).new_profile.communities.get(i).invites.get(j).name;
+					accounts.get(index).new_profile.communities.get(i).members.add(new_member);
+					System.out.printf("Adicionado(a) aos membros da sua comunidade!\n[1] Continue\n=> ");
+					String okay = input.nextLine();
+					System.out.printf("\n");
+					
+				}
+			}
+			accounts.get(index).new_profile.communities.get(i).invites.clear();
+		}
 		
-		
+		/* Inicio do Menu */
 		while(active)
 		{
 			System.out.printf("\nOla, %s, este e o seu Perfil\n"
@@ -105,9 +131,9 @@ public class Login
 			System.out.printf("\n");
 			System.out.printf("Caixa de entrada [%s].\n", accounts.get(index).new_profile.input_box.size());
 			System.out.printf("\n[1] Editar perfil\n[2] Adicionar amigo\n[3] Enviar mensagem\n[4] Ler mensagens da caixa de entrada\n"
-					+ "[5] Criar comunidade\n[6] Entrar em comunidade\n[7] Sua(s) comunidade(s)\n[8] Enviar mensagem para comunidade\n"
+					+ "[5] Criar comunidade\n[6] Entrar em comunidade\n[7] Suas comunidades, mensagens e membros.\n[8] Enviar mensagem para comunidade\n"
 					+ "[9] Recuperar dados\n[10] Excluir conta\n"
-					+ "[11] Logoff\n=> ");
+					+ "[11] Salvar dados e Logoff\n=> ");
 			
 			user_choise = input.nextInt();
 			input.nextLine();
@@ -188,7 +214,8 @@ public class Login
 							System.out.printf("Mensagem de %s:\n\"%s\"\n"
 									+ "[1] Continue\n=> ", accounts.get(index).new_profile.input_box.get(i).from_username,
 									accounts.get(index).new_profile.input_box.get(i).message);
-							decision = input.nextInt(); input.nextLine();	
+							okay = input.nextLine();
+							System.out.printf("\n");	
 						}
 					}
 					else
@@ -202,12 +229,244 @@ public class Login
 				case 5:
 					Community new_community = new Community();
 					new_community.setCommunity(accounts.get(index).getUsername());
+					accounts.get(index).new_profile.communities.add(new_community);
+					Friends new_friend2 = new Friends();
+					new_friend2.username = accounts.get(index).username;
+					new_friend2.name = accounts.get(index).new_profile.getName();
+					accounts.get(index).new_profile.communities.get(0).members.add(new_friend2);
+					System.out.printf("Comunidade criada!\n");
+					System.out.printf("[1] Continue\n=> ");
+					okay = input.nextLine();
+					System.out.printf("\n");
 					break;
 				case 6:
+					decision = 0;
+					System.out.printf("Comunidades do iFace:\n\n");
+					for(int i = 0; i < accounts.size(); i++)
+					{
+						if(accounts.get(i).username.intern() != accounts.get(index).username.intern()
+								&& !accounts.get(i).new_profile.communities.isEmpty())
+						{
+							for(int j = 0; j < accounts.get(i).new_profile.communities.size(); j++)
+							{
+								System.out.printf("Admin: %s\nNome: %s\nDescricao: %s\n\n",
+										accounts.get(i).new_profile.communities.get(j).admin,
+										accounts.get(i).new_profile.communities.get(j).name,
+										accounts.get(i).new_profile.communities.get(j).theme);
+								decision = 1;
+							}							
+						}
+					}
+					
+					if(decision == 1)
+					{
+						System.out.printf("Deseja entrar em alguma?\n[1] Sim [2] Nao\n=> ");
+						decision = input.nextInt(); input.nextLine();						
+					}
+					
+					if(decision == 1)
+					{
+						System.out.printf("Digite o nome:\n=> ");
+						okay = input.nextLine();
+						for(int i = 0; i < accounts.size(); i++)
+						{
+							if(accounts.get(i).username.intern() != accounts.get(index).username.intern()
+									&& !accounts.get(i).new_profile.communities.isEmpty())
+							{
+								for(int j = 0; j < accounts.get(i).new_profile.communities.size(); j++)
+								{
+									if(okay.intern() == accounts.get(i).new_profile.communities.get(j).name.intern())
+									{
+										for(int k = 0; k < accounts.get(i).new_profile.communities.get(j).members.size(); k++)
+										{
+											if(accounts.get(index).username.intern() == accounts.get(i).new_profile.communities.get(j).members.get(k).username.intern())
+											{
+												decision = 0; break;
+											}
+										}
+										if(decision == 0)
+											break;
+										Invite invite = new Invite();
+										invite.username = accounts.get(index).username;
+										invite.name = accounts.get(index).new_profile.getName();
+										accounts.get(i).new_profile.communities.get(j).invites.add(invite);
+										System.out.printf("A solicitacao foi enviada para %s\n\n", accounts.get(i).new_profile.communities.get(j).admin);
+										System.out.printf("[1] Continue\n=> ");
+										okay = input.nextLine();
+										System.out.printf("\n"); decision = 0;
+										break;
+									}
+								}
+							}
+							if(decision==0)
+								break;
+						}
+					}
+					else
+					{
+						System.out.printf("Comunidade nao foi encontrada ou voce ja faz parte.\n");
+						System.out.printf("[1] Continue\n=> ");
+						okay = input.nextLine();
+						System.out.printf("\n");
+					}
+					
 					break;
 				case 7:
+					/*for(int i = 0; i < accounts.get(index).new_profile.communities.size(); i++)
+					{
+						System.out.printf("Nome: %s\nDescricao: %s\nMembros:\n", accounts.get(index).new_profile.communities.get(i).name,
+								accounts.get(index).new_profile.communities.get(i).theme);
+						for(int j = 0; j < accounts.get(index).new_profile.communities.get(i).members.size(); j++)
+						{
+							System.out.printf(" - %s\n", accounts.get(index).new_profile.communities.get(i).members.get(j).getUsername());
+						}
+						for(int j = 0; j < accounts.get(index).new_profile.communities.get(i).messages.size(); j++)
+						{
+							System.out.printf("Mensagem de %s:\n%s\n", accounts.get(index).new_profile.communities.get(i).messages.get(j).from_username,
+									accounts.get(index).new_profile.communities.get(i).messages.get(j).message);
+						}
+					}*/
+					for(int i = 0; i < accounts.size(); i++)
+					{
+						for(int j = 0; j < accounts.get(i).new_profile.communities.size(); j++)
+						{
+							for(int k = 0; k < accounts.get(i).new_profile.communities.get(j).members.size(); k++)
+							{
+								if(accounts.get(index).username.intern() == accounts.get(i).new_profile.communities.get(j).members.get(k).username.intern() )
+								{
+									System.out.printf("\n---------------\n");
+									System.out.printf("Admin: %s\nNome: %s\nDescricao: %s\nMembros:\n",
+											accounts.get(i).new_profile.communities.get(j).admin,
+											accounts.get(i).new_profile.communities.get(j).name,
+											accounts.get(i).new_profile.communities.get(j).theme);
+									for(int l = 0; l < accounts.get(i).new_profile.communities.get(j).members.size(); l++)
+									{
+										System.out.printf(" -> %s\n", accounts.get(i).new_profile.communities.get(j).members.get(l).getUsername());
+									}
+									for(int m = 0; m < accounts.get(i).new_profile.communities.get(j).messages.size(); m++)
+									{
+										System.out.printf("Mensagem de %s:\n%s\n", accounts.get(i).new_profile.communities.get(j).messages.get(m).from_username,
+												accounts.get(i).new_profile.communities.get(j).messages.get(m).message);
+									}
+									System.out.printf("---------------\n\n");
+								}
+							}
+						}
+					}
+					System.out.printf("[1] Continue\n=> ");
+					okay = input.nextLine();
+					System.out.printf("\n");
 					break;
 				case 8:
+					System.out.printf("Comunidades do iFace:\n\n");
+					for(int i = 0; i < accounts.size(); i++)
+					{
+						if(accounts.get(i).username.intern() != accounts.get(index).username.intern()
+								&& !accounts.get(i).new_profile.communities.isEmpty())
+						{
+							for(int j = 0; j < accounts.get(i).new_profile.communities.size(); j++)
+							{
+								System.out.printf("Nome: %s\nDescricao: %s\n\n",
+										accounts.get(i).new_profile.communities.get(j).name,
+										accounts.get(i).new_profile.communities.get(j).theme);
+							}
+						}
+					}
+					System.out.printf("Deseja enviar mensagem para qual?\n=> ");
+					okay = input.nextLine(); decision = 1;
+					for(int i = 0; i < accounts.size(); i++)
+					{
+						for(int j = 0; j < accounts.get(i).new_profile.communities.size(); j++)
+						{
+							if(okay.intern() == accounts.get(i).new_profile.communities.get(j).name.intern())
+							{
+								InputBox new_message2 = new InputBox();
+								new_message2.from_username = accounts.get(i).getUsername();
+								new_message2.getMessage();
+								accounts.get(i).new_profile.communities.get(j).messages.add(new_message2);
+								System.out.printf("Mensagem enviada!\n[1] Continue\n=> ");
+								okay = input.nextLine();
+								System.out.printf("\n");
+								decision = 0;
+							}
+							if(decision==0)
+								break;
+						}
+						if(decision == 0)
+							break;
+					}
+					if(decision == 1)
+					{
+						System.out.printf("Comunidade nao encontrada.\n[1] Continue\n=> ");
+						okay = input.nextLine();
+						System.out.printf("\n");
+					}
+					break;
+				case 9:
+					break;
+				case 10:
+					System.out.printf("Apagar conta?\n[1] Sim [2] Nao\n=> ");
+					decision = input.nextInt(); input.nextLine();
+					if(decision == 1)
+					{
+						for(int i = 0; i < accounts.size(); i++)
+						{
+							if(accounts.get(i).username.intern() == accounts.get(index).username.intern())
+							{
+								for(int j = 0; j < accounts.get(i).new_profile.communities.size(); j++)
+								{
+									accounts.get(i).new_profile.communities.get(j).invites.clear();
+									accounts.get(i).new_profile.communities.get(j).members.clear();
+									accounts.get(i).new_profile.communities.get(j).messages.clear();
+								}
+								accounts.get(i).new_profile.communities.clear();
+								accounts.get(i).new_profile.friends.clear();
+								accounts.get(i).new_profile.input_box.clear();
+								accounts.get(i).new_profile.invites.clear();
+							}
+							else
+							{
+								for(int j = 0; j < accounts.get(i).new_profile.communities.size(); j++)
+								{
+										for(int k = 0; k < accounts.get(i).new_profile.communities.get(j).invites.size(); k++)
+										{
+											if(accounts.get(index).username.intern() == accounts.get(i).new_profile.communities.get(j).invites.get(k).username.intern())
+												accounts.get(i).new_profile.communities.get(j).invites.remove(k);							
+										}
+										for(int k = 0; k < accounts.get(i).new_profile.communities.get(j).members.size(); k++)
+										{
+											if(accounts.get(index).username.intern() == accounts.get(i).new_profile.communities.get(j).members.get(k).username.intern())
+												accounts.get(i).new_profile.communities.get(j).members.remove(k);							
+										}
+										for(int k = 0; k < accounts.get(i).new_profile.communities.get(j).messages.size(); k++)
+										{
+											if(accounts.get(index).username.intern() == accounts.get(i).new_profile.communities.get(j).messages.get(k).from_username.intern())
+												accounts.get(i).new_profile.communities.get(j).messages.remove(k);							
+										}
+								}
+								for(int j = 0; j < accounts.get(i).new_profile.friends.size(); j++)
+								{
+									if(accounts.get(index).username.intern() == accounts.get(i).new_profile.friends.get(j).username.intern())
+										accounts.get(i).new_profile.friends.remove(j);
+								}
+								for(int j = 0; j < accounts.get(i).new_profile.input_box.size(); j++)
+								{
+									if(accounts.get(index).username.intern() == accounts.get(i).new_profile.input_box.get(j).from_username.intern())
+										accounts.get(i).new_profile.input_box.remove(j);
+								}
+								for(int j = 0; j < accounts.get(i).new_profile.invites.size(); j++)
+								{
+									if(accounts.get(index).username.intern() == accounts.get(i).new_profile.invites.get(j).username.intern())
+										accounts.get(i).new_profile.invites.remove(j);
+								}
+							}
+						}
+						accounts.remove(index);
+						active = false;
+						System.out.printf("Conta apagada!\n[1] Continue\n=> ");
+						okay = input.nextLine();
+						System.out.printf("\n");
+					}
 					break;
 				case 11:
 					active = false;

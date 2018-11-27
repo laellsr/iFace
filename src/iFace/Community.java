@@ -17,5 +17,6 @@ public class Community
 		name = input.nextLine();
 		System.out.printf("Digite o tema da sua nova comunidade:\n=> ");
 		theme = input.nextLine();
+		admin = username;
 	}
 }
