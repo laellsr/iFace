@@ -403,15 +403,52 @@ public class Login
 					}
 					break;
 				case 9:
-					int u =0;
-					if(u==0)
+					boolean go = false;
+					for(int i=0; i < backups.size(); i++)
+					{
+						if(backups.get(i).username.intern()==accounts.get(index).username.intern())
+						{
+							go = true; 
+							Register save2 = new Register();
+							save2.username = backups.get(i).getUsername();
+							save2.password = backups.get(i).getPassword();
+							save2.new_profile.age = backups.get(i).new_profile.getAge();
+							save2.new_profile.city = backups.get(i).new_profile.getCity();
+							save2.new_profile.country = backups.get(i).new_profile.getCountry();
+							save2.new_profile.gender = backups.get(i).new_profile.getGender();
+							save2.new_profile.more1 = backups.get(i).new_profile.getMore1();
+							save2.new_profile.more2 = backups.get(i).new_profile.getMore2();
+							save2.new_profile.phrase = backups.get(i).new_profile.getPhrase();
+							save2.new_profile.state = backups.get(i).new_profile.getState();
+							save2.new_profile.name = backups.get(i).new_profile.getName();
+							save2.new_profile.communities =  (ArrayList<Community>) backups.get(i).new_profile.communities.clone();
+							for(int j=0; j < backups.get(i).new_profile.communities.size(); j++)
+							{
+								save2.new_profile.communities.get(j).messages = (ArrayList<InputBox>) backups.get(i).new_profile.communities.get(j).messages.clone();
+								save2.new_profile.communities.get(j).members = (ArrayList<Friends>) backups.get(i).new_profile.communities.get(j).members.clone();
+								save2.new_profile.communities.get(j).invites = (ArrayList<Invite>) backups.get(i).new_profile.communities.get(j).invites.clone();
+							}
+							save2.new_profile.friends =  (ArrayList<Friends>) backups.get(i).new_profile.friends.clone();
+							save2.new_profile.input_box =  (ArrayList<InputBox>) backups.get(i).new_profile.input_box.clone();
+							save2.new_profile.invites =  (ArrayList<Invite>) backups.get(i).new_profile.invites.clone();
+							backups.remove(i);
+							accounts.remove(index);
+							accounts.add(save2);
+							break;
+						}
+					}
+					if(!go)
 					{
 						System.out.printf("Sem backup.\n[1] Continue\n=> ");
 						okay = input.nextLine();
 						System.out.printf("\n");
 						break;
 					}
-				
+					
+					System.out.printf("Ultimo backup restaurado!\nVoce voltara a tela inicial.\n[1] Continue\n=> ");
+					okay = input.nextLine();
+					System.out.printf("\n");
+					active = false;
 					break;
 				case 10:
 					System.out.printf("Apagar conta?\n[1] Sim [2] Nao\n=> ");
@@ -500,6 +537,13 @@ public class Login
 					save.new_profile.friends =  (ArrayList<Friends>) accounts.get(index).new_profile.friends.clone();
 					save.new_profile.input_box =  (ArrayList<InputBox>) accounts.get(index).new_profile.input_box.clone();
 					save.new_profile.invites =  (ArrayList<Invite>) accounts.get(index).new_profile.invites.clone();
+					for(int i=0; i < backups.size(); i++)
+					{
+						if(backups.get(i).username.intern() == save.username.intern())
+						{
+							backups.remove(i); break;
+						}
+					}
 					backups.add(save);
 					//System.out.printf("%s\n", save.new_profile.communities.get(0).messages.get(0));
 					active = false;
