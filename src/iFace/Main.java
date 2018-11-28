@@ -10,6 +10,7 @@ public class Main
 	{
 		Scanner input = new Scanner(System.in);
 		ArrayList<Register> accounts = new ArrayList<Register>();
+		ArrayList<Register> backups = new ArrayList<Register>();
 		boolean active = true; int choise;
 		while(active)
 		{
@@ -24,7 +25,7 @@ public class Main
 					Login new_login = new Login();
 					int index = new_login.checkLogin(accounts);
 					if(index>-1)
-						new_login.menuLogin(accounts, index);
+						new_login.menuLogin(accounts, index, backups);
 					break;
 				
 				case 2:
