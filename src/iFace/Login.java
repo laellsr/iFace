@@ -457,6 +457,14 @@ public class Login
 					{
 						for(int i = 0; i < accounts.size(); i++)
 						{
+							for(int j=0; j < backups.size(); j++)
+							{
+								if(backups.get(j).username.intern()==accounts.get(index).username.intern())
+								{
+									backups.remove(j);
+									break;
+								}
+							}
 							if(accounts.get(i).username.intern() == accounts.get(index).username.intern())
 							{
 								for(int j = 0; j < accounts.get(i).new_profile.communities.size(); j++)
