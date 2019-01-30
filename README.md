@@ -1,6 +1,6 @@
 # iFace
 
-# Funcionalidades
+## Funcionalidades
 
 - Criação de conta
     - Autentificador de usuário
@@ -12,17 +12,49 @@
     - Troca de mensagens entre usuários
     - Caixa de mensagens
 - Criação de comunidades e adição de membros
-    - Receber notificações para ingresso em comunidade
-    - Notificações sobre mensagens da comunidade
     - Gerenciar sua comunidade
+    - Notificações para ingresso em comunidade
+    - Notificações sobre mensagens da comunidade
 - Desfazer/Refazer uma ação
 - Remoção de conta
 
-# Classes
+## Classes
 
 - Community
     - Motivação:  Necessidade de dar independência à comunidade
     - Vantagem: Fácil adição
-    - Desvantagem:
+    - Desvantagem:  
+- Friends
+    - Motivação:  
+    - Vantagem:
+    - Desvantagem:  
+- InputBox
+    - Motivação:  
+    - Vantagem: 
+    - Desvantagem:  
+- Invite
+    - Motivação:  
+    - Vantagem: 
+    - Desvantagem:  
+- Login
+    - Motivação:  
+    - Vantagem: 
+    - Desvantagem:  
+- Main
+    - Motivação:  
+    - Vantagem: 
+    - Desvantagem:  
+- Profile
+    - Motivação:  
+    - Vantagem: 
+    - Desvantagem:  
+- Register
+    - Motivação:  
+    - Vantagem: 
+    - Desvantagem:  
+- Search
+    - Motivação:  
+    - Vantagem: 
+    - Desvantagem:  
 
 
