@@ -3,8 +3,8 @@
 # Funcionalidades
 
 - Criação de conta
--   Autentificador de usuário
--   Registro de novo usuário
+--    Autentificador de usuário
+--    Registro de novo usuário
 - Criação e edição de perfil
 - Adição de amigos
 -   Envio de convites para permissão de amizade
